@@ -4,6 +4,9 @@
 \usepackage{apacite2}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{color}
+
+\newcommand{\comment}[1]{\textcolor{blue}{#1}}
 
 \title{Wordbank: An Open Repository for Developmental Vocabulary Data} 
 
@@ -40,7 +43,7 @@ For researchers, the nature and course of early word learning is a window into t
 
 New words tend to enter children's expressive vocabularies over the next several months slowly but steadily: children reach reach an average of 300 words by 24 months and more than 60,000 by the time they graduate from high school \cite{fenson2007}. At the same time, there are significant individual differences in language acquisition, as documented by early diary and observational studies, techniques with a long and respected history in the field of child language. For example, although some 18-month-olds already produce 50--75 words, others produce no words at all, and will not do so until they are 22 months or older \cite<e.g.,>{brown1973}. 
 
-\subsection{Measuring early vocabulary}
+% \subsection{Measuring early vocabulary}
 
 Traditional studies of language development typically apply a combination of observational assessment and structured tests, frequently relying on short samples of interactions and small samples of children. However, discerning both the universal features and natural variation of language development has been greatly facilitated by the development of parent report instruments like the MacArthur-Bates CDI \cite{fenson1994,fenson2007} and the Language Development Survey \cite{rescorla1989}. The CDIs were developed across a period of more than 40 years. Originally designed for use in a research study \cite{bates1976}, the instruments evolved from a structured interview to the current paper-and-pencil format. 
 
@@ -58,7 +61,7 @@ The CDI takes advantage of the fact that parents are expert observers of their c
 % \end{itemize}
 
 
-Over the last several years, the technique of parent report has continued to gain popularity. In addition to standard research projects, which frequently include the CDI as an auxiliary outcome or control measure, the CDI instruments have been adopted in a variety of large-scale studies both in the US (e.g., the NICHD Study of Early Child Care) and in other countries. This broad and deep use of CDI forms creates a moment of opportunity: Although the CDI has many users, to perform new analyses of a topic of interest, researchers still typically collect their own sample, and the size and composition of these samples is limited.
+Over the last several years, the technique of parent report has continued to gain popularity. In addition to standard research projects, which frequently include the CDI as an auxiliary outcome or control measure, the CDI instruments have been adopted in a variety of large-scale studies both in the US (e.g., the NICHD Study of Early Child Care) and in other countries. This broad and deep use of CDI forms creates a moment of opportunity: Although the CDI has many users, to perform new analyses of a topic of interest, researchers still typically collect their own sample, and the size and composition of these samples is limited. 
 
 \section{Wordbank}
 
@@ -81,18 +84,21 @@ Why use a database to store vocabulary data? Consider the standard format of ite
 
 A relational database such as Wordbank is at its heart a series of tables linked by unique identifiers. Wordbank's organization is shown in Fig. \ref{fig:entities}. The primary table is the \emph{administrations} table, which catalogs each administration of a given CDI instrument to a particular child at a particular age. The \emph{child} table describes the demographics of the child, including---but not limited to---sex, birth order, mother and father's education, place of testing (country or US state), birth weight, etc. The \emph{source} table gives the contributor and (where relevant) published citation for the particular CDI administration. This is the tag by which contributors can re-export their own particular data.
 
-
 \begin{figure}[t]
 \centering
-\includegraphics[width=4.5in]{figures/entities.pdf}
-\caption{\label{fig:entities} Entity-relation diagram for the Wordbank database. The fundamental table administrations, in which an instrument (a CDI form) is used to measure vocabulary for a child by a particular source (researcher or lab). Instruments are se!s of words, each be linked to descriptive information, including categories and norms.}
+\includegraphics[width=6in]{figures/entities.pdf}
+\caption{\label{fig:entities} Entity-relation diagram for the Wordbank database. The fundamental table administrations, in which an instrument (a CDI form) is used to measure vocabulary for a child by a particular source (researcher or lab). Instruments are se!s of words, each be linked to descriptive information, including categories and norms. \comment{Out of date!}}
 \end{figure}
 
 CDI instruments in Wordbank are organized through linked tables: the \emph{instrument} table gives the words in each instrument, while the \emph{word info} table contains information about each word, including number of syllables, number of phonemes, frequency in a corpus, psycholinguistic norms, or any other variables relevant to analyses of vocabulary growth. The \emph{CDI category} table is used to provide categorizations of words into relevant groupings for further category-based analysis.
 
+\subsubsection{Technical details}
+
+Wordbank is constructed using free, open-source tools. The database is a standard MySQL database, managed using Python and Django. Analysis apps are constructed using the \texttt{Shiny} package for \texttt{R}, a open-source statistical programming language.  The code is hosted in a github repository (\url{http://github.com/langcog/wordbank}) where interested users can browse, leave comments, or contribute modifications. 
+
 \subsection{Interactive Analyses}
 
-The primary method for users to interact with the Wordbank is through interactive reports that are hosted on the website. These reports allow exploration of 
+The primary method for users to interact with the Wordbank is through interactive reports that are hosted on the website. These reports allow exploration of the dataset quickly, as well as the download of the results in tabular and graphical formats. 
 
 \subsubsection{Vocabulary Norms}
 
@@ -101,6 +107,11 @@ The primary method for users to interact with the Wordbank is through interactiv
 \caption{\label{fig:norms}.}
 \end{figure}
 
+This vocabulary norms plot shows all administrations of a particular CDI instrument within the instrument's valid age range. Dots show individual children, with age rounded to the nearest month (and jittered to avoid overplotting). Lines on the plot indicate estimates of percentiles, fit using quantile regression with monotonic polynomial splines as the base function (Muggeo et al., 2013; gcrq package in R).
+
+Disclaimer. Wordbank reports reflect the available data, dynamically combined from different sources that may not be identical to those included in the norming samples for a particular instrument. In particular, users should be aware that the values provided by Wordbank for English and Spanish are based on different participants and are estimated following different computational procedures than the values published in the User’s Guide and Technical Manual (Fenson et al., 2007; Jackson-Maldonado et al., 2003) and applied in the CDI Scoring program (Marchman, 2013).
+
+In general, we do not recommend that Wordbank-generated norming values be used for research or clinical purposes in which the goal is to evaluate children's performance in reference to an established normative standard (e.g., determining the mean words produced percentile of a group of children in a study; classifying whether the performance of an individual child falls below the 10th percentile). For these types of applications in English and Spanish, users should refer to the norms and guidelines published in the manuals for those languages (available from Brookes Publishing Co). For similar applications in other languages, users should refer to the appropriate manuals and norming information, as listed on the contributors page.
 
 \subsubsection{Item Trajectories}
 
@@ -109,14 +120,30 @@ The primary method for users to interact with the Wordbank is through interactiv
 \caption{\label{fig:items} }
 \end{figure}
 
+This analysis allows exploration of growth curves for individual words on a CDI form. The experimental "both" option shows data from multiple forms for the same language.
+
+Plot description. This plot shows the mean proportion producing or understanding the selected items. Points show individual age group averages, lines show a local polynomial regression smoothing line (loess in R). If the “both” form option is selected, forms are distinguished by their marker, but a single function fit is shown.
+
+\subsubsection{Tabular data download}
+
+Wordbank also allows raw tabular data to be browsed and downloaded for subsequent analysis in all popular statistical packages. Using the same basic interface as the Vocabulary Norms and Item Trajectory apps, users can browse raw data aggregated across children (similar to the Vocabulary Norms app), across items (similar to the Items Trajectory app), or even view the raw subject-by-item data. All data in these reports can be downloaded in CSV format. 
 
 \subsection{Extensibility}
+
+We view extensibility as one of the major strengths of wordbank. Interested parties can contribute to the development effort by contributing analyses or by contributing data. 
+
+\subsubsection{Contributing analyses}
+
+Each Wordbank analysis app is constructed as a standalone script or set of scripts in the \texttt{R} language. On the Analysis page of the site, we provide a gallery of both interactive and non-interactive analyses of the wordbank dataset. Constructing an interactive analysis requires specifying a visualization and some interactive functionality using the \texttt{Shiny} package. Non-interactive analyses can be constructed as \texttt{RMarkdown} documents that execute scripts using the Wordbank database. Both of these have the virtue of rerunning on the newest version of the database whenever they are opened, so they do not go out of date when new data are added. 
+
+\subsubsection{Contributing data}
+
+Wordbank currently imports data from excel and CSV formats via automated import scripts. Individuals or labs interested in contributing should consult with the authors for advice about data formatting and upload. \comment{MORE HERE?}
 
 
 \section{wordbankR: an R package for accessing Wordbank}
 
-
-
+\comment{TO DO: MAKE THE PACKAGE}
 
 \section{Conclusions}
 
