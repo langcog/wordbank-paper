@@ -1,0 +1,63 @@
+---
+title: "Gender Differences in Vocabulary Development"
+output:
+  html_document:
+    highlight: tango
+    theme: spacelab
+---
+
+```{r knitr, include=FALSE}
+library(knitr)
+opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+Load required libraries.
+```{r packages}
+library(wordbankr)
+library(langcog)
+library(dplyr)
+library(ggplot2)
+library(directlabels)
+```
+
+Get administration data and filter to administrations of Words & Sentences that have sex/gender coded.
+```{r vocab_admins}
+vocab_admins <- get_administration_data() %>%
+  select(data_id, language, form, age, sex, production) %>%
+  filter(form == "WS", !is.na(sex))
+```
+
+Get item information to find the number of items on each language's form.
+```{r num_words}
+num_words <- get_item_data() %>%
+  filter(form == "WS", type == "word") %>%
+  group_by(language) %>%
+  summarise(n = n())
+```
+
+Normalize productive vocabulary size as a proportion of items and calculate median vocabulary size for each language, sex/gender, and age.
+```{r vocab_data}
+vocab_data <- vocab_admins %>%
+  left_join(num_words) %>%
+  mutate(production = as.numeric(production) / n) %>%
+  group_by(language, sex, age) %>%
+  summarise(median = median(production))
+```
+
+Plot vocabulary size over age by gender.
+```{r plot, fig.width=13, fig.height=8}
+ggplot(filter(vocab_data, language != "Hebrew"),
+       aes(x = age, y = median, colour = sex, label = sex)) +
+  facet_wrap(~ language) +
+  geom_line(size = 1) +
+  scale_colour_solarized() +
+  scale_x_continuous(breaks = seq(min(vocab_data$age), max(vocab_data$age), 2),
+                     limits = c(min(vocab_data$age), max(vocab_data$age) + 1),
+                     name = "\nAge (months)") +
+  scale_y_continuous(name = "Median Productive Vocabulary (proportion of total words)\n",
+                     limits=c(0,1)) +
+  theme_bw(base_size=14) +
+  theme(legend.position = "none",
+        text = element_text(family = "Open Sans")) +
+  geom_dl(method = list(dl.trans(x = x + 0.2), "last.qp", cex = 1, fontfamily = "Open Sans"))
+```
