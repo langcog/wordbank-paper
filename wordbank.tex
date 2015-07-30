@@ -1,4 +1,4 @@
-\documentclass[doc,noapacite]{apa2} 
+\documentclass[man,noapacite]{apa2} 
 
 \usepackage{url}
 \usepackage{apacite2}
@@ -47,18 +47,20 @@
 
 \title{Wordbank: An Open Repository for Developmental Vocabulary Data} 
 
-\author{Michael C. Frank, Mika Braginsky, Daniel Yurovsky, \\ \& Virginia A. Marchman} 
+\author{~}
+\affiliation{~}
+% \author{Michael C. Frank, Mika Braginsky, Daniel Yurovsky, \\ \& Virginia A. Marchman} 
+%\affiliation{Department of Psychology, Stanford University}
 
-\affiliation{Department of Psychology, Stanford University}
-
-\abstract{Understanding the processes by which vocabulary grows provides a window into linguistic and cognitive development. The MacArthur-Bates Communicative Development Inventories (CDIs) are a widely-used family of parent-report instruments for easy and inexpensive data-gathering about early language acquisition. CDI data have been used to explore a variety of theoretically-important topics, but with few exceptions, researchers have had to rely on data collected in their own lab: there is no resource that offers researchers the opportunity to share and access raw CDI data. We describe Wordbank, a structured database of item-by-child data of vocabulary measures from CDI forms combined with a browsable web interface. Wordbank archives CDI data across languages and labs, providing a resource for researchers interested in early language as well as a platform for novel analyses.}
+\abstract{Understanding the processes by which vocabulary grows provides a window into linguistic and cognitive development. The MacArthur-Bates Communicative Development Inventories (CDIs) are a widely-used family of parent-report instruments for easy and inexpensive data-gathering about early language acquisition. CDI data have been used to explore a variety of theoretically-important topics, but with few exceptions, researchers have had to rely on data collected in their own lab: there is no resource that offers researchers the opportunity to share and access raw CDI data. We describe Wordbank, a structured database of vocabulary measures from CDI forms combined with a browsable web interface. Wordbank archives CDI data across languages and labs, providing a resource for researchers interested in early language as well as a platform for novel analyses.}
 
 \shorttitle{Wordbank: A Repository For Vocabulary Data} 
 \rightheader{WORDBANK: A REPOSITORY FOR VOCAB DATA}
 
-\acknowledgements{This work supported by a John Merck Scholars award and NSF BCS-1528526. Thanks to Ranjay Krishna for contributions to the initial development of the site, to Rune N\o rgaard J\o rgensen for helping port data from CLEX, to all of the contributors listed at \url{wordbank.stanford.edu/contributors} for generously sharing their data, and to the Advisory Board of the MacArthur-Bates Communicative Development Inventories, especially Philip Dale and Larry Fenson, for their support. 
+\acknowledgements{~}
+% \acknowledgements{This work supported by a John Merck Scholars award and NSF BCS-1528526. Thanks to Ranjay Krishna for contributions to the initial development of the site, to Rune N\o rgaard J\o rgensen for helping port data from CLEX, to all of the contributors listed at \url{wordbank.stanford.edu/contributors} for generously sharing their data, and to the Advisory Board of the MacArthur-Bates Communicative Development Inventories, especially Philip Dale and Larry Fenson, for their support. 
 
-Please address correspondence to Michael C. Frank, Department of Psychology, Jordan Hall (Bldg. 420), 450 Serra Mall, Stanford, CA 94305. Phone: (650) 724-4003. E-mail: \url{mcfrank@stanford.edu}.}
+% Please address correspondence to Michael C. Frank, Department of Psychology, Jordan Hall (Bldg. 420), 450 Serra Mall, Stanford, CA 94305. Phone: (650) 724-4003. E-mail: \url{mcfrank@stanford.edu}.}
 
 \begin{document}
 
@@ -72,7 +74,7 @@ The MacArthur-Bates Communicative Development Inventories \cite<CDIs;>{fenson199
 
 To remedy this issue, we introduce Wordbank (\url{wordbank.stanford.edu}), a structured database of developmental vocabulary data. Building on previous tools like CLEX \cite{jorgensen2010}, Wordbank archives raw CDI data across languages and labs, providing a large-scale database of information about children's vocabulary knowledge. The site hosts an interactive and expandable set of in-depth analyses that can be explored by interested researchers, students, and members of the public. Wordbank lowers the cost of new, exploratory analyses by facilitating the productive reuse of data.
 
-The current paper presents the Wordbank site in detail. We begin by discussing the motivations for constructing such a site. The bulk of the paper then describes the Wordbank site, including its database architecture, its web-based front-end, and its extensibility. We end by presenting \texttt{wordbankr}, a package for the \texttt{R} statistical programming language that allows research users to access the database directly, showing as a case study an analysis of gender differences in productive vocabulary across 12 languages. 
+The current paper presents the Wordbank site in detail. We begin by discussing the motivations for constructing such a site. The bulk of the paper then describes the Wordbank site, including its database architecture, its web-based front-end, and its extensibility. We end by presenting \texttt{wordbankr}, a package for the \texttt{R} statistical programming language that allows research users to access the database directly, showing as a case study an analysis of gender differences in productive vocabulary across languages. 
 
 \section{Motivation and Background} 
 
@@ -114,14 +116,14 @@ Wordbank builds on CLEX, offering the same functionality but allowing flexible a
 \begin{figure}[t]
 \centering
 \includegraphics[width=5in]{figures/itembychild.pdf}
-\caption{\label{fig:data} Example item-by-child data from the CDI norming sample (Fenson et al., 2007). Each row has a unique child identifier, demographics, and word-by-word checklist data. }
+\caption{\label{fig:data} Example data from the CDI norming sample (Fenson et al., 2007). Each row has a unique child identifier, demographics, and word-by-word checklist data. }
 \end{figure}
 
-Why use a database to store vocabulary data? Consider the standard format of item-by-child CDI data. Figure \ref{fig:data} shows a small slice of the original CDI norming data \cite{fenson1994,fenson2007}. Each row is a child, each column gives a variable---either a demographic variable or the result of a particular word being administered to a particular child. Although this format is useful for homogeneous administrations of a single instrument, it cannot accommodate multiple instruments, multiple languages, or datasets with different sources or kinds of demographic information. Consolidating data across different instruments is very difficult in this format, and tracking data on children with multiple longitudinal administrations of a single instrument must also be done in an ad-hoc manner. The move to a database format allows far more flexible and programmatic handling of heterogeneous data structures from different sources. 
+Why use a database to store vocabulary data? Consider the standard format of raw CDI data. Figure \ref{fig:data} shows a small slice of the original CDI norming data \cite{fenson1994,fenson2007}. Each row is a child, each column gives a variable---either a demographic variable or the result of a particular word being administered to a particular child. Although this format is useful for homogeneous administrations of a single instrument, it cannot accommodate multiple instruments, multiple languages, or datasets with different sources or kinds of demographic information. Consolidating data across different instruments is very difficult in this format, and tracking data on children with multiple longitudinal administrations of a single instrument must also be done in an ad-hoc manner. The move to a database format allows far more flexible and programmatic handling of heterogeneous data structures from different sources. 
 
 A relational database such as Wordbank is at its heart a series of tables linked by unique identifiers. There are two primary groups of tables in Wordbank. The common tables store data that is shared between CDI instruments, including information about children, administrations (individual instances of a form being filled out for a child), and items (words and other questions on a form). The instrument tables store response data for particular CDI instruments.
 
-Wordbank is designed so that it can accommodate data from a wide variety of instruments, both within and across languages. Different character sets are supported using unicode.  In keeping with the general philosophy of the CDI developers that each new version should be adapted to the unique structure of the new language (up to and including adding new components), our approach to cross-linguistic data is to provide standardized analyses within language, without assuming translation equivalence. At time of writing, the site includes data from more than 44,000 administrations of the CDI across 14 different languages and 23 different instruments. 
+Wordbank is designed so that it can accommodate data from a wide variety of instruments, both within and across languages. Different character sets are supported using unicode.  In keeping with the general philosophy of the CDI developers that each new version should be adapted to the unique structure of the new language (up to and including adding new components), our approach to cross-linguistic data is to provide standardized analyses within language, without assuming translation equivalence. At time of writing, the site includes data from more than 44,000 administrations of the CDI across 13 different languages and 23 different instruments. 
 
 \subsubsection{Technical details}
 
@@ -135,7 +137,7 @@ The primary method for users to interact with the Wordbank is through interactiv
 
 \subsubsection{Vocabulary norms}
 
-\begin{figure}[t]
+\begin{figure}[h!]
 \includegraphics[width=6in]{figures/normsapp.png}
 \caption{\label{fig:norms} A screenshot of the Vocabulary Norms analysis tool, showing 10th, 25th, 50th, 75th, and 90th percentiles (default) for English production scores. Dots show individual administrations, jittered slightly to avoid overplotting. Curves show polynomial spline fits (see text for more details).}
 \end{figure}
@@ -146,7 +148,7 @@ The original and updated norming studies \cite{fenson1994,fenson2007} gathered d
 
 \subsubsection{Item trajectories}
 
-\begin{figure}[t]
+\begin{figure}[h!]
 \includegraphics[width=6in]{figures/itemsapp.png}
 \caption{\label{fig:items} A screenshot of the Item Trajectories analysis tool, showing a visualization of the developmental trajectory of production for three words (``dog,'' ``choo choo,'' and ``table'') across both Words \& Gestures and Words \& Sentences forms.}
 \end{figure}
@@ -195,8 +197,7 @@ num_words <- items %>%
   summarise(n = n())
 
 vocab_admins <- admins %>%
-  select(data_id, language, form, age, sex, production) %>%
-  filter(form == "WS", !is.na(sex), sex != "")
+  select(data_id, language, form, age, sex, production)
 
 vocab_data <- vocab_admins %>%
   group_by(language, sex, age) %>%
@@ -207,7 +208,7 @@ vocab_data <- vocab_admins %>%
 
 \noindent We then plot the \texttt{vocab\char`_data} data frame using the \texttt{ggplot2} library \cite{wickham2009}. Full code for the analysis as a whole (including the plot) is given in the Using Wordbank tutorial, available on at \url{wordbank.stanford.edu/tutorial}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \includegraphics[width=6in]{figures/gender.png}
 \caption{\label{fig:gender} Median productive vocabulary as a proportion of total words on an instrument, plotted by age in months. Red and blue lines show females and males, respectively.}
 \end{figure}
