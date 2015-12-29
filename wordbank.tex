@@ -4,44 +4,6 @@
 \usepackage{apacite2}
 \usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{listings}
-
-% from http://tex.stackexchange.com/questions/110722/trying-to-include-r-code-with-listings-package
-\lstset{ %
-  language=R,                     % the language of the code
-  basicstyle=\footnotesize\ttfamily,       % the size of the fonts that are used for the code
-  numbers=none,                   % where to put the line-numbers
-  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
-                                  % will be numbered
-  numbersep=5pt,                  % how far the line-numbers are from the code
-  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
-  showspaces=false,               % show spaces adding particular underscores
-  showstringspaces=false,         % underline spaces within strings
-  showtabs=false,                 % show tabs within strings adding particular underscores
-  % frame=single,                   % adds a frame around the code
-  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
-  tabsize=2,                      % sets default tabsize to 2 spaces
-  captionpos=b,                   % sets the caption-position to bottom
-  breaklines=true,                % sets automatic line breaking
-  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-  title=\lstname,                 % show the filename of files included with \lstinputlisting;
-                                  % also try caption instead of title
-  keywordstyle=\color{blue},      % keyword style
-  commentstyle=\color{green!60!black},   % comment style
-  stringstyle=\color{green!60!black},      % string literal style
-  escapeinside={\%*}{*)},         % if you want to add a comment within your code
-  morekeywords={*,...},           % if you want to add more keywords to the set
-  belowskip=-2 \baselineskip,
-  otherkeywords={%  
-    filter, group_by, select, summarise, left, join, mutate, summarise_each
-    }, 
-    deletekeywords={data, get, median, na}
-} 
-
-\newcommand{\comment}[1]{\marginpar[]{\small \textcolor{blue}{#1}}}
-
 
 %%%%%%%%%%%%%%%%%%%%%% MAIN TEXT STARTS HERE %%%%%%%%%%%%%%%%%%%%%%
 
@@ -52,10 +14,10 @@
 % \author{Michael C. Frank, Mika Braginsky, Daniel Yurovsky, \\ \& Virginia A. Marchman} 
 % \affiliation{Department of Psychology, Stanford University}
 
-\abstract{The MacArthur-Bates Communicative Development Inventories (CDIs) are a widely-used family of parent-report instruments for easy and inexpensive data-gathering about early language acquisition. CDI data have been used to explore a variety of theoretically-important topics, but with few exceptions, researchers have had to rely on data collected in their own lab: there is no resource that offers researchers the opportunity to share and access raw CDI data. We describe Wordbank, a structured database of vocabulary measures from CDI forms combined with a browsable web interface. Wordbank archives CDI data across languages and labs, providing a resource for researchers interested in early language as well as a platform for novel analyses. The site allows interactive exploration of patterns of vocabulary growth at the level of both individuals and particular words. We also introduce wordbankr, a software package for connecting to the database directly. Together these tools extend the abilities of students and researchers to explore quantitative trends in vocabulary development.}
+\abstract{The MacArthur-Bates Communicative Development Inventories (CDIs) are a widely-used family of parent-report instruments for easy and inexpensive data-gathering about early language acquisition. CDI data have been used to explore a variety of theoretically-important topics, but with few exceptions, researchers have had to rely on data collected in their own lab. In this paper, we remedy this issue by presenting Wordbank, a structured database of CDI data combined with a browsable web interface. Wordbank archives CDI data across languages and labs, providing a resource for researchers interested in early language as well as a platform for novel analyses. The site allows interactive exploration of patterns of vocabulary growth at the level of both individuals and particular words. We also introduce wordbankr, a software package for connecting to the database directly. Together these tools extend the abilities of students and researchers to explore quantitative trends in vocabulary development.}
 
 \shorttitle{Wordbank: A Repository For Vocabulary Data} 
-\rightheader{WORDBANK: A REPOSITORY FOR VOCAB DATA}
+\rightheader{WORDBANK: A REPOSITORY FOR VOCABULARY DATA}
 
 \acknowledgements{~}
 % \acknowledgements{This work supported by a John Merck Scholars award and NSF BCS-1528526. Thanks to Ranjay Krishna for contributions to the initial development of the site, to Rune N\o rgaard J\o rgensen for helping port data from CLEX, to all of the contributors listed at \url{wordbank.stanford.edu/contributors} for generously sharing their data, and to the Advisory Board of the MacArthur-Bates Communicative Development Inventories, especially Philip Dale and Larry Fenson, for their support. 
@@ -70,12 +32,12 @@
 
 % In addition, since vocabulary growth lays the groundwork for future academic achievement \cite{hart1995,marchman2008}, a better scientific understanding of factors affecting vocabulary development holds the promise of societal benefits.
 
-Learning language is one of the most impressive and intriguing human accomplishments, and understanding the processes by which vocabulary grows can provide a window into mechanisms of linguistic and cognitive development more generally \cite{bloom2002}. The MacArthur-Bates Communicative Development Inventories\footnote{We use the umbrella abbreviation CDI to refer to the broader class of parent-report instruments adapted from the original English forms.} \cite{fenson1994,fenson2007} are a widely-used family of parent-report instruments for easy and inexpensive data-gathering about early language acquisition. CDI data have been used to explore many theoretically-rich topics, including variation in early word production \cite{fenson1994}, vocabulary composition \cite{bates1994}, the relation between lexical and grammatical development 
+Learning language is one of the most impressive and intriguing human accomplishments, and understanding the processes by which vocabulary grows can provide a window into mechanisms of linguistic and cognitive development more generally \cite{bloom2002}. The MacArthur-Bates Communicative Development Inventories\footnote{We use the umbrella abbreviation CDI to refer to the broader class of parent-report instruments adapted from the original English version.} \cite{fenson1994,fenson2007} are a widely-used family of parent-report instruments for easy and inexpensive data-gathering about early language acquisition. CDI data have been used to explore many theoretically-rich topics, including variation in early word production \cite{fenson1994}, vocabulary composition \cite{bates1994}, the relation between lexical and grammatical development 
 \cite{bates1999}, and the growth of lexical networks \cite{hills2009}. With few exceptions, however, researchers have had to rely on data collected in their own lab. While CDI norms are available \cite{fenson2007,jorgensen2010}, no public resource offers researchers the opportunity to share and access raw, cross-linguistic data at the scale necessary to address questions about demographic variation, vocabulary composition, relations with grammatical development, and other important issues.
 
 To remedy this issue, we introduce Wordbank (\url{wordbank.stanford.edu}), a structured database of developmental vocabulary data. Building on previous tools like CLEX \cite{jorgensen2010}, Wordbank archives raw CDI data across languages and labs, providing a large-scale database of information about children's vocabulary knowledge. The site hosts an interactive and expandable set of in-depth analyses that can be explored by interested researchers, students, and members of the public. Wordbank lowers the cost of new, exploratory analyses by facilitating the productive reuse of data.
 
-The current paper presents the Wordbank site in detail. We begin by discussing the motivations for constructing such a site. The bulk of the paper then describes the Wordbank site, including its database architecture, its web-based front-end, and its extensibility. In particular we highlight two analysis functions that are provided by the online interface: vocabulary growth norms across individuals and the trajectory of acquisition for individual words. These broad analyses allow a very wide range of targeted investigations. For example, throughout the paper, we use an exploration of gender differences in production vocabulary as a worked case study that illustrates the various features of the site.  We end by presenting \texttt{wordbankr}, a package for the \texttt{R} statistical programming language that allows research users to access the database directly.
+The current paper presents the Wordbank site in detail. We begin by discussing the motivations for constructing such a site. The bulk of the paper then describes the Wordbank site, including its database architecture, its web-based front-end, and its extensibility. In particular we highlight two analysis functions that are provided by the online interface: vocabulary growth norms across individuals and the trajectory of acquisition for individual words. These broad analyses allow a very wide range of targeted investigations. Throughout the paper, we use an exploration of gender differences in production vocabulary as a worked case study that illustrates the various features of the site.  We end by presenting \texttt{wordbankr}, a package for the \texttt{R} statistical programming language that allows research users to access the database directly.
 
 \section{Motivation and Background} 
 
@@ -85,11 +47,11 @@ The nature and course of early word learning is an important window into childre
 
 Traditional studies of language development typically apply a combination of observational assessment and structured tests, frequently relying on short samples of interactions and small samples of children. Discerning both the universal features and natural variation of early lexical development has been greatly facilitated by the development of parent report instruments like the MacArthur-Bates CDI \cite{fenson1994,fenson2007} and the Language Development Survey \cite<LDS;>{rescorla1989}. The CDIs in particular were developed across a period of more than 40 years. Originally designed for use in a research study \cite{bates1976}, the instruments have evolved from a structured interview to the current paper-and-pencil format and are now increasingly administered online (e.g., \citeNP{kristoffersen2013} for Norwegian or \url{http://laboratorium.detskarec.sk} for Slovak). While other assessment tools exist for slightly older children, to our knowledge, no other measure allows cost-effective global language assessment for children in the critical age ranges between the emergence of language and the period when children become more able to engage in structured, face-to-face activities (around 30 months). 
 
-Naturalistic observations are the other leading candidate for measurement of early language, but such observations are extremely costly and time-consuming to transcribe and annotate. These difficulties lead to a tradeoff where most studies either include dense data about a small number of children or smaller amounts of data with a larger sample size. Dense datasets currently provide the best method for in-depth study of the interaction between learning mechanisms and language input in individuals \cite<e.g.>{lieven2009,roy2015}, although the generality of these studies is necessarily limited by the small sample. At the other end of the spectrum, assessment of individual language samples can yield information about individual variability \cite<e.g.>{dickinson2001,cartmill2013,weisleder2013}, but at some cost in terms of depth.
+Naturalistic observations are the other leading candidate for measurement of early language, but such observations are extremely costly and time-consuming to transcribe and annotate. These difficulties lead to a tradeoff where most studies either include dense data about a small number of children or smaller amounts of data with a larger sample size. Dense datasets currently provide the best method for in-depth study of the interaction between learning mechanisms and language input in individuals \cite<e.g.>{lieven2009,roy2015}, although the generality of these studies is necessarily limited by their small sample sizes. At the other end of the spectrum, assessment of many individual language samples can yield information about individual variability \cite<e.g.>{dickinson2001,cartmill2013,weisleder2013}, but at some cost in terms of depth.
 
 In addition, naturalistic observations do not measure children's language comprehension, a variable of interest for many early language researchers. Estimates of production vocabulary from naturalistic observation are highly correlated with the CDI within studies \cite<e.g.>{bornstein1998}, but affected substantially by length of the session, context, and interlocutor when comparing across studies. And although there exist methods to extract insights about global vocabulary from naturalistic observation, these statistical extrapolations are relatively new and have not been validated extensively \cite{hidaka2015}. Other comprehension vocabulary measures are also available across some range of languages (e.g., the Peabody Picture Vocabulary Test 4; \citeNP{dunn2007}), but these assessments are time-consuming and tailored for substantially older children. 
 
-Parent report measures like the CDI and LDS take advantage of the fact that parents are expert observers of their child. CDI instruments ask about use of communicative gestures, grammar, and symbolic play, as well as vocabulary, which is measured using checklists consisting of representative samples of words. Parents choose the words their child currently ``understands'' (comprehension, measured for younger children) or ``says'' (production, measured for both younger and older children).  The checklists contain words from many different semantic (e.g., animal names, household items) and syntactic (e.g., action words, connectives) categories, resulting in broader samples of lexical knowledge than are available from other methods. In their English and Spanish instantiations, the instruments come in two versions: Words \& Gestures (8--18 months) and Words \& Sentences (16--30 months). Originally designed for English, parallel instruments have now been adapted for more than 60 languages \cite{dale2011}.
+Parent-report measures like the CDI and LDS take advantage of the fact that parents are expert observers of their child. CDI instruments ask about use of communicative gestures, grammar, and symbolic play, as well as vocabulary, which is measured using checklists consisting of representative samples of words. Parents choose the words their child currently ``understands'' (comprehension, measured for younger children) or ``says'' (production, measured for both younger and older children).  The checklists contain words from many different semantic (e.g., animal names, household items) and syntactic (e.g., action words, connectives) categories, resulting in broader samples of lexical knowledge than are available from other methods. In their English and Spanish instantiations, the instruments come in two versions: Words \& Gestures (8--18 months) and Words \& Sentences (16--30 months). Originally designed for English, parallel instruments have now been adapted for more than 60 languages \cite{dale2011}.
 
 \subsection{Limitations of parent report}
 
@@ -100,7 +62,7 @@ The instruments were designed to minimize bias by targeting current behaviors an
 
 \section{Wordbank}
 
-To take advantage of the opportunity posed by the broad use of CDI forms in the child language community, we have constructed Wordbank, an open repository for CDI data that allows for interactive analysis and visualization. The current main page of the site is shown in Figure \ref{fig:screenshot}. In this section, we begin by describing technical details of the site's database architecture. We then describe the two primary analysis tools that form the heart of the site's interactive functionality. We give a worked example of how to use these, and then end by discussing the extensibility of the Wordbank framework, highlighting opportunities for contributing data and for building new analyses. 
+To take advantage of the opportunity posed by the broad use of CDI instruments in the child language community, we have constructed Wordbank, an open repository for CDI data that allows for interactive analysis and visualization. The current main page of the site is shown in Figure \ref{fig:screenshot}. In this section, we begin by describing technical details of the site's database architecture. We then describe the two primary analysis tools that form the heart of the site's interactive functionality. We give a worked example of how to use these, and then end by discussing the extensibility of the Wordbank framework, highlighting opportunities for contributing data and for building new analyses. 
 
 \begin{figure}[h!]
 \includegraphics[width=6.4in]{figures/screenshot.png}
@@ -137,7 +99,7 @@ All data uploaded to Wordbank are open and freely available for download, both t
 
 The general philosophy of the CDI has been summarized as ``adaptation, not translation'' \cite{dale2015}. In other words, CDIs are a useful tool for many languages, but the forms differ between languages---words and even whole sections are added, dropped, and modified to ensure that the form captures the details of the particular language for which it is designed. To date, more than 60 adaptations of the original English CDI have been documented \cite{dale2011}. These forms vary widely, including differences in length and intended age range. Some forms include hundreds of items more than the original 680 words on the English Words \& Sentences form; others are so-called ``short forms'' and include only a hundred or a few hundred carefully selected words. Some are designed to capture development from the emergence of language through ages 3--4 years, while others are focused on very early development (like the English Words \& Gestures form, designed for ages 8--18 months). All of these differences make it problematic to compare scores and score distributions across forms, even using percentile ranks, since some instruments will have more or more difficult items than others. 
 
-Wordbank is designed so that it can accommodate data from a wide variety of instruments, both within and across languages. Indeed, at the time of writing, the site includes data from more than 42,000 administrations of the CDI across 14 different languages and 24 different instruments. But because of the difficulties in comparison across instruments, our approach to cross-linguistic and cross-instrument data is to provide standardized analyses within each instrument and language, without assuming equivalence across words, instruments, or populations. Thus, our exploratory visualization tools in general do not allow comparison across languages and we urge users to interpret cross-linguistic and cross-instrument differences with caution.\footnote{The only exception to this policy currently is that we allow users to see responses across forms for individual words, in the Item Trajectories analysis (e.g., the proportion of children who say the word ``cat'' on both Words and Gestures and Words and Sentences forms).} Developing statistical techniques to facilitate these comparisons is a current focus of our research. 
+Wordbank is designed so that it can accommodate data from a wide variety of instruments, both within and across languages. Indeed, at the time of writing, the site includes data from more than 42,000 administrations of the CDI across 14 different languages and 24 different instruments. But because of the difficulties in comparison across instruments, our approach to cross-linguistic and cross-instrument data is to provide standardized analyses within each instrument and language, without assuming equivalence across words, instruments, or populations. Thus, our exploratory visualization tools in general do not allow comparison across languages and we urge users to interpret cross-linguistic and cross-instrument differences with caution.\footnote{The only exception to this policy currently is that we allow users to see responses across instruments for individual words, in the Item Trajectories analysis (e.g., the proportion of children who say the word ``cat'' on both Words and Gestures and Words and Sentences forms).} Developing statistical techniques to facilitate these comparisons is a current focus of our research. 
 
 \subsection{Interactive Analysis Tools}
 
@@ -150,9 +112,9 @@ The primary method for users to interact with the Wordbank is through interactiv
 \caption{\label{fig:norms} A screenshot of the Vocabulary Norms analysis tool, showing 10th, 25th, 50th, 75th, and 90th percentiles (default) for English production scores. Dots show individual administrations, jittered slightly to avoid overplotting. Curves show polynomial spline fits (see text for more details).}
 \end{figure}
 
-One of the primary purposes of the CDI form is to provide percentile ranks for vocabulary growth across ages, both for visualizing the variability of early vocabulary growth and for examining differences in these growth patterns due to individual differences and demographic variables. Accordingly, Wordbank provides a Vocabulary Norms analysis, pictured in Figure \ref{fig:norms}. The inset plot shows all administrations of a particular CDI instrument within the instrument's valid age range. Dots show individual children, with age binned by month and jittered to avoid overplotting. Lines on the plot indicate estimates of percentiles, fit using quantile regression with monotonic polynomial splines as the base function (using the \texttt{gcrq} function of the \texttt{quantregGrowth} package; \citeNP{muggeo2013}). An important feature of the norms app is that it can be split by any demographic field in the data, so that comparisons on variables like gender, birth order, or maternal education can be conducted. 
+One of the primary purposes of the CDI instruments is to provide percentile ranks for vocabulary growth across ages, both for visualizing the variability of early vocabulary growth and for examining differences in these growth patterns due to individual differences and demographic variables. Accordingly, Wordbank provides a Vocabulary Norms analysis, pictured in Figure \ref{fig:norms}. The inset plot shows all administrations of a particular CDI instrument within the instrument's valid age range. Dots show individual children, with age binned by month and jittered to avoid overplotting. Lines on the plot indicate estimates of percentiles, fit using quantile regression with monotonic polynomial splines as the base function (using the \texttt{gcrq} function of the \texttt{quantregGrowth} package; \citeNP{muggeo2013}). An important feature of the norms app is that it can be split by any demographic field in the data, so that comparisons on variables like gender, birth order, or maternal education can be conducted. 
 
-The original and updated norming studies \cite{fenson1993,fenson2007} gathered data from a diverse (though not nationally-representative) sample and used these data to construct normative curves from which percentile ranks could be derived. In contrast to these studies, Wordbank is not explicitly designed to provide stable, clinically-relevant norms. Wordbank's sample is heterogeneous and continually growing, and its analyses are subject to revision and update. Thus, Wordbank does not currently generate percentile ranks, and we do not recommend that Wordbank-generated norming values be used for research or clinical purposes in which the goal is to evaluate children's performance in reference to an established normative standard. For these types of applications, users should refer to the published norms in the appropriate language.\footnote{Users can always generate percentile ranks themselves, and this may be desirable or necessary for research purposes, but we caution against the clinical use of such ad-hoc norms.}
+The original and updated norming studies \cite{fenson1994,fenson2007} gathered data from a diverse (though not nationally-representative) sample and used these data to construct normative curves from which percentile ranks could be derived. In contrast to these studies, Wordbank is not explicitly designed to provide stable, clinically-relevant norms. Wordbank's sample is heterogeneous and continually growing, and its analyses are subject to revision and update. Thus, Wordbank does not currently generate percentile ranks, and we do not recommend that Wordbank-generated norming values be used for research or clinical purposes in which the goal is to evaluate children's performance in reference to an established normative standard. For these types of applications, users should refer to the published norms in the appropriate language.\footnote{Users can always generate percentile ranks themselves, and this may be desirable or necessary for research purposes, but we caution against the clinical use of such ad-hoc norms.}
 
 \subsubsection{Item trajectories}
 
@@ -161,7 +123,7 @@ The original and updated norming studies \cite{fenson1993,fenson2007} gathered d
 \caption{\label{fig:items} A screenshot of the Item Trajectories analysis tool, showing a visualization of the developmental trajectory of production for three words (\emph{dog}, \emph{choo choo}, and \emph{table}) across both Words \& Gestures and Words \& Sentences forms.}
 \end{figure}
 
-A second function of the CDI form is to provide aggregate data on the proportion of children at a particular age who know a specific word \cite{dale1996,jorgensen2010}. Such analyses can be extremely helpful for the design and evaluation of materials for young children, including experimental stimuli. Accordingly, the second major interactive visualization in Wordbank is the Item Trajectories analysis tool. 
+A second function of the CDI instruments  is to provide aggregate data on the proportion of children at a particular age who know a specific word \cite{dale1996,jorgensen2010}. Such analyses can be extremely helpful for the design and evaluation of materials for young children, including experimental stimuli. Accordingly, the second major interactive visualization in Wordbank is the Item Trajectories analysis tool. 
 
 This tool allows exploration of growth curves for individual words on a CDI form. Users can select a language and instrument (and choose production or comprehension where available), and then select or input a list of words whose trajectories are plotted (Figure \ref{fig:items}). The ``both'' measure option shows data from multiple forms for the same language, with different markers for each item. In general, our exploration suggests that there are only small differences across different instruments for the same item and age. Lines on the plot show a local polynomial regression smoothing line (\texttt{loess} in \texttt{R}). 
 
@@ -175,7 +137,7 @@ Wordbank also allows raw tabular data to be browsed and downloaded for subsequen
 
 Imagine a student interested in gender\footnote{The distinction between sex (biological characteristic) and gender (social characteristic) is complex, and not well-understood in early childhood. We defer discussion of this issue, but since the CDI is a parent-report form, we do not have access to either sex or gender information directly.} differences in production vocabulary size, perhaps for a class project. Gender differences in language production are commonly found in individual studies (e.g., \citeNP{fenson1994,huttenlocher1991}; see \citeNP{wallentin2009} for review), and one large-scale previous study found differences in production vocabulary in 10 languages \cite{eriksson2012}. 
 
-To explore these differences using Wordbank, the student would navigate from the home page to the Vocabulary norms report. English is the default language for the report, but the student could in principle select any language in the database. Similarly, she could select her desired form in the ``Forms'' menu (Words and Sentences is the default). She would then select ``Gender'' as a split variable for the data (in the ``Split Variable'' menu) to see normative curves and sample sizes for each part of the dataset. Or, to make a plot that enabled comparison of the median level of production vocabulary, she could select ``Median'' in the ``Quantiles'' menu. 
+To explore these differences using Wordbank, the student would navigate from the home page to the Vocabulary norms report. English is the default language for the report, but the student could in principle select any language in the database. Similarly, she could select her desired instrument in the ``Forms'' menu (Words and Sentences is the default). She would then select ``Gender'' as a split variable for the data (in the ``Split Variable'' menu) to see normative curves and sample sizes for each part of the dataset. Or, to make a plot that enabled comparison of the median level of production vocabulary, she could select ``Median'' in the ``Quantiles'' menu. 
 
 \begin{figure}[h!]
 \includegraphics[width=6in]{figures/vocabulary_norms.pdf}
@@ -203,14 +165,15 @@ The \texttt{wordbankr} package is easily installed via CRAN, the comprehensive R
 
 We next demonstrate the analytic potential of direct manipulation of the Wordbank database using \texttt{wordbankr}, by using the package to extend the worked example of gender differences above. This section also replicates a large-scale analysis by \citeA{eriksson2012}. To perform the analysis, we first begin by using \texttt{wordbankr} to load the data from Wordbank and connect to the tables we need:
 
-\begin{lstlisting}
+
+\begin{verbatim}
 admins <- get_administration_data()
 items <- get_item_data()
-\end{lstlisting}
+\end{verbatim}
 
 \noindent We next use a series of \texttt{dplyr} calls to compute the number of words in each language,  select the appropriate subset of the data, and calculate the proportion of words produced for this data subset:
 
-\begin{lstlisting}
+\begin{verbatim}
 num_words <- items %>%
   filter(form == "WS", type == "word") %>%
   group_by(language) %>%
@@ -224,7 +187,7 @@ vocab_data <- vocab_admins %>%
   left_join(num_words) %>%
   mutate(production = as.numeric(production) / n) %>%
   summarise(median = median(production))
-\end{lstlisting}
+\end{verbatim}
 
 \noindent We then plot the \texttt{vocab\char`_data} data frame using the \texttt{ggplot2} library \cite{wickham2009}. Full code for the analysis as a whole (including the plot) is available at \url{mikabr.github.io/demo-vocab/gender.html}.
 
@@ -233,11 +196,11 @@ vocab_data <- vocab_admins %>%
 \caption{\label{fig:gender} Median production vocabulary as a proportion of total words on an instrument, plotted by age in months. Red and blue lines show females and males, respectively.}
 \end{figure}
 
-The results of this analysis are shown in Figure \ref{fig:gender}. As expected, we replicate the gender differences found in previous work \cite{eriksson2012}: Females showed a small but highly reliable advantage in early production. This effect is highly consistent and clearly visible in 11 out of 12 languages, with Italian being the only exception. For comparison, the previous work found a positive female effect for 10/10 languages, but the size of hte effect was close to zero for two of these. While the Wordbank data do not allow us to speculate about the origins of this gender difference \cite<for some discussion, see>{eriksson2012}, they certainly allow us to formulate hypotheses with substantially more clarity than previous analyses. Such visualizations also highlight differences in the size and composition of the database.
+The results of this analysis are shown in Figure \ref{fig:gender}. As expected, we replicate the gender differences found in previous work \cite{eriksson2012}: Females showed a small but highly reliable advantage in early production. This effect is highly consistent and clearly visible in 11 out of 12 languages, with Italian being the only exception. For comparison, the previous work found a positive female effect for 10/10 languages, but the size of the effect was close to zero for two of these. Observational data such as those contained in Wordbank allow us only to speculate about the origins of this gender difference or the sources of crosslinguistic variation \cite<for some discussion, see>{eriksson2012}. But the Wordbank platform dramatically facilitates the formulation and testing of analyses of this sort, allowing hypotheses to be tested quickly and easily against large datasets. 
 
 \section{Conclusions}
 
-In this paper, we presented Wordbank, an open repository for parent-report vocabulary data using the MacArthur-Bates CDI. The interactive analysis tools available on the Wordbank site allow interested researchers to explore a wide variety of phenomena in vocabulary development quickly and easily, exporting data and downloading presentation-quality graphics that document their analysis. In addition, users can contribute new analyses and data to the site and connect to it directly using an \texttt{R} package for data loading. These functions all enable greater sharing and reuse of existing data on children's vocabulary. We hope that the resulting tools will enable new discoveries in the future.
+In this paper, we presented Wordbank, an open repository for parent-report vocabulary data from the MacArthur-Bates CDI. The interactive analysis tools available on the Wordbank site allow interested researchers to explore a wide variety of phenomena in vocabulary development quickly and easily, exporting data and downloading presentation-quality graphics that document their analysis. In addition, users can contribute new analyses and data to the site and connect to it directly using an \texttt{R} package for data loading. These functions all facilitate greater sharing and reuse of existing data on children's vocabulary, enabling new discoveries in the future.
 
 \bibliographystyle{apacite}
 \bibliography{wordbank}
